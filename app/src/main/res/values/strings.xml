@@ -3,4 +3,11 @@
     <string name="text_no_history">No shipping history. \nCalculate a new shipping to display it here.</string>
     <string name="shipping_history">Shipping history</string>
     <string name="calc_new_shipping">Calculate a new shipping</string>
+    <string name="calc_your_shipping">Calc your shipping</string>
+    <string name="origin">Origin</string>
+    <string name="destiny">Destiny</string>
+    <string name="axes">Axes</string>
+    <string name="fuel_consumption">Fuel Consumption (Km/L)</string>
+    <string name="fuel_price">Diesel price (R$)</string>
+    <string name="close">Close</string>
 </resources>
