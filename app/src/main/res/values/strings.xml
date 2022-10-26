@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TruckPad</string>
+    <string name="text_no_history">No shipping history. \nCalculate a new shipping to display it here.</string>
+    <string name="shipping_history">Shipping history</string>
+    <string name="calc_new_shipping">Calculate a new shipping</string>
 </resources>

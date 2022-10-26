@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TruckPad</string>
+    <string name="text_no_history">Sem histórico de fretes. \nCalcule um novo frete para exibi-lo aqui.</string>
+    <string name="shipping_history">Histórico de fretes</string>
+    <string name="calc_new_shipping">Calcular novo frete</string>
+</resources>
