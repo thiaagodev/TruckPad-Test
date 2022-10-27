@@ -10,4 +10,5 @@
     <string name="fuel_consumption">Consumo médio (Km/L)</string>
     <string name="fuel_price">Preço do diesel (R$)</string>
     <string name="close">Fechar</string>
+    <string name="ERROR_UNEXPECTED">Ocorreu um erro inesperado</string>
 </resources>

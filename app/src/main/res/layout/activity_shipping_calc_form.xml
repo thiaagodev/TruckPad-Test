@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
     android:padding="16dp"
-    tools:context=".view.ShippingCalcForm">
+    tools:context=".view.ShippingCalcFormActivity">
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -25,11 +25,10 @@
         android:id="@+id/fab_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/close"
         android:src="@drawable/ic_baseline_close_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/close"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_origin"
@@ -43,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_calc_your_shipping" />
 
-    <androidx.appcompat.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
         android:id="@+id/edit_origin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_origin" />
 
-    <androidx.appcompat.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
         android:id="@+id/edit_destiny"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,6 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_destiny" />
 
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_axes"
         android:layout_width="wrap_content"
@@ -91,8 +91,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_destiny"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/edit_destiny" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edit_axes"

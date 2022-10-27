@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun openShippingForm() {
         startActivity(
-            Intent(this, ShippingCalcForm::class.java)
+            Intent(this, ShippingCalcFormActivity::class.java)
         )
 
     }
