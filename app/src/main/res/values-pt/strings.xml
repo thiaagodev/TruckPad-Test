@@ -6,7 +6,7 @@
     <string name="calc_your_shipping">Calcule seu frete</string>
     <string name="origin">Origem</string>
     <string name="destiny">Destino</string>
-    <string name="axes">Eixos</string>
+    <string name="axes">Eixos ( mínimo 2, máximo 9)</string>
     <string name="fuel_consumption">Consumo médio (Km/L)</string>
     <string name="fuel_price">Preço do diesel (R$)</string>
     <string name="close">Fechar</string>

@@ -4,10 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -16,6 +19,7 @@ import com.thiaagodev.truckpad.R
 import com.thiaagodev.truckpad.databinding.ActivityShippingCalcFormBinding
 import com.thiaagodev.truckpad.view.filter.MinMaxFilter
 import com.thiaagodev.truckpad.viewmodel.ShippingCalcFormViewModel
+import java.text.NumberFormat
 import java.util.*
 
 
@@ -35,6 +39,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProvider(this)[ShippingCalcFormViewModel::class.java]
 
         binding.fabClose.setOnClickListener(this)
+        binding.buttonCalcShipping.setOnClickListener(this)
         binding.editAxes.filters = arrayOf(MinMaxFilter(2, 9))
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -43,11 +48,85 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
         checkLocationPermission()
         viewModel.getCities()
+
+        var current = ""
+
+        binding.editFuelPrice.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                if (s.toString() != current) {
+                    binding.editFuelPrice.removeTextChangedListener(this)
+
+                    var cleanString: String = s.toString()
+                        .replace("R$", "")
+                        .replace(",", "")
+                        .replace(".", "")
+                        .replace("\\s".toRegex(), "")
+
+
+                    val parsed = cleanString.toDouble()
+                    val formatted = NumberFormat.getCurrencyInstance().format((parsed / 100))
+
+                    current = formatted
+                    binding.editFuelPrice.setText(formatted)
+                    binding.editFuelPrice.setSelection(formatted.length)
+
+                    binding.editFuelPrice.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
+        binding.editFuelConsumption.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                if (s.toString() != current) {
+                    binding.editFuelConsumption.removeTextChangedListener(this)
+
+                    var cleanString: String = s.toString()
+                        .replace("L", "")
+                        .replace(",", "")
+                        .replace(".", "")
+                        .replace("\\s".toRegex(), "")
+
+
+                    val parsed = cleanString.toDouble()
+                    var formatted = NumberFormat.getCurrencyInstance().format((parsed / 100))
+                    formatted = formatted.toString().replace("R$", "L")
+
+                    current = formatted
+                    binding.editFuelConsumption.setText(formatted)
+                    binding.editFuelConsumption.setSelection(formatted.length)
+
+                    binding.editFuelConsumption.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.fab_close -> finish()
+            R.id.button_calc_shipping -> calcShipping()
         }
     }
 
@@ -71,6 +150,10 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.editOrigin.setAdapter(adapter)
         binding.editDestiny.setAdapter(adapter)
+    }
+
+    private fun calcShipping() {
+
     }
 
     private fun checkLocationPermission() {
