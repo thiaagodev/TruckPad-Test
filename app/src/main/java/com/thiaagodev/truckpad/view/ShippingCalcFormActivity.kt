@@ -6,14 +6,16 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.thiaagodev.truckpad.R
 import com.thiaagodev.truckpad.databinding.ActivityShippingCalcFormBinding
@@ -28,6 +30,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityShippingCalcFormBinding
     private lateinit var viewModel: ShippingCalcFormViewModel
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var cities: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,24 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
         checkLocationPermission()
         viewModel.getCities()
 
+        binding.editOrigin.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && ::cities.isInitialized) {
+                if (!cities.contains(binding.editOrigin.text.toString())) {
+                    binding.editOrigin.setText("")
+                    wrongCityAlert()
+                }
+            }
+        }
+
+        binding.editDestiny.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && ::cities.isInitialized) {
+                if (!cities.contains(binding.editDestiny.text.toString())) {
+                    binding.editDestiny.setText("")
+                    wrongCityAlert()
+                }
+            }
+        }
+
         var current = ""
 
         binding.editFuelPrice.addTextChangedListener(object : TextWatcher {
@@ -62,7 +83,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
                 if (s.toString() != current) {
                     binding.editFuelPrice.removeTextChangedListener(this)
 
-                    var cleanString: String = s.toString()
+                    val cleanString: String = s.toString()
                         .replace("R$", "")
                         .replace(",", "")
                         .replace(".", "")
@@ -97,8 +118,8 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
                 if (s.toString() != current) {
                     binding.editFuelConsumption.removeTextChangedListener(this)
 
-                    var cleanString: String = s.toString()
-                        .replace("L", "")
+                    val cleanString: String = s.toString()
+                        .replace("Km/L", "")
                         .replace(",", "")
                         .replace(".", "")
                         .replace("\\s".toRegex(), "")
@@ -106,7 +127,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
                     val parsed = cleanString.toDouble()
                     var formatted = NumberFormat.getCurrencyInstance().format((parsed / 100))
-                    formatted = formatted.toString().replace("R$", "L")
+                    formatted = formatted.toString().replace("R$", "Km/L")
 
                     current = formatted
                     binding.editFuelConsumption.setText(formatted)
@@ -132,6 +153,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun observe() {
         viewModel.cities.observe(this) {
+            cities = it
             setEditAdapter(it)
         }
 
@@ -150,6 +172,20 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.editOrigin.setAdapter(adapter)
         binding.editDestiny.setAdapter(adapter)
+    }
+
+    private fun wrongCityAlert() {
+        val snackBarView = Snackbar.make(
+            binding.root,
+            "Selecione uma cidade da lista",
+            Snackbar.LENGTH_LONG
+        )
+        val view = snackBarView.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+        snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+        snackBarView.show()
     }
 
     private fun calcShipping() {
