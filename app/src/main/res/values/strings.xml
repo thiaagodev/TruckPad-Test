@@ -6,10 +6,11 @@
     <string name="calc_your_shipping">Calc your shipping</string>
     <string name="origin">Origin</string>
     <string name="destiny">Destiny</string>
-    <string name="axes">Axes ( min 2, max 9)</string>
+    <string name="axes">Axes (min 2, max 9)</string>
     <string name="fuel_consumption">Fuel Consumption (Km/L)</string>
     <string name="fuel_price">Diesel price (R$)</string>
     <string name="close">Close</string>
     <string name="ERROR_UNEXPECTED">An unexpected error occurred</string>
     <string name="locale_error">Unable to communicate with location services, fill in origin manually.</string>
+    <string name="wrong_city_name">Select a city from the list</string>
 </resources>

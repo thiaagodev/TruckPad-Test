@@ -6,10 +6,11 @@
     <string name="calc_your_shipping">Calcule seu frete</string>
     <string name="origin">Origem</string>
     <string name="destiny">Destino</string>
-    <string name="axes">Eixos ( mínimo 2, máximo 9)</string>
+    <string name="axes">Eixos (mínimo 2, máximo 9)</string>
     <string name="fuel_consumption">Consumo médio (Km/L)</string>
     <string name="fuel_price">Preço do diesel (R$)</string>
     <string name="close">Fechar</string>
     <string name="ERROR_UNEXPECTED">Ocorreu um erro inesperado</string>
     <string name="locale_error">Não foi possível comunicar com os serviços de localização, preencha a origem manualmente.</string>
+    <string name="wrong_city_name">Selecione uma cidade da lista</string>
 </resources>

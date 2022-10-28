@@ -177,7 +177,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
     private fun wrongCityAlert() {
         val snackBarView = Snackbar.make(
             binding.root,
-            "Selecione uma cidade da lista",
+            getString(R.string.wrong_city_name),
             Snackbar.LENGTH_LONG
         )
         val view = snackBarView.view
