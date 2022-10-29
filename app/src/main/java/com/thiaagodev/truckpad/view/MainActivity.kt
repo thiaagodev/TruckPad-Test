@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun observe() {
         viewModel.shippingList.observe(this) {
+            if (it.isNotEmpty()) binding.textNoShipping.visibility = View.INVISIBLE
             adapter.updateShipping(it)
         }
     }

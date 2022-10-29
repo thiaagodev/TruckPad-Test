@@ -35,26 +35,24 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_no_shipping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="5dp"
         android:padding="16dp"
         android:text="@string/text_no_history"
         android:textAlignment="center"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/button_calc_new_shipping"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_shipping"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="8dp"
+        android:paddingTop="32dp"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button_calc_new_shipping"
         app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
