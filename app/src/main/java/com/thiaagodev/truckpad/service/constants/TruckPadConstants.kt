@@ -1,6 +1,8 @@
 package com.thiaagodev.truckpad.service.constants
 
-class TruckPadConstants private constructor(){
+import com.thiaagodev.truckpad.BuildConfig
+
+class TruckPadConstants private constructor() {
     object Retrofit {
         const val baseUrl = "https://api.homolog.truckpad.io/geo/v1/"
         const val IBGEBaseUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/"
@@ -12,6 +14,6 @@ class TruckPadConstants private constructor(){
     }
 
     object GOOGLE {
-        const val KEY = "AIzaSyClno2D2ftNkWaX8mPXjESjhPxuL-UHXds"
+        const val KEY = BuildConfig.API_KEY
     }
 }
