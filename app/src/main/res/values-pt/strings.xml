@@ -13,4 +13,5 @@
     <string name="ERROR_UNEXPECTED">Ocorreu um erro inesperado</string>
     <string name="locale_error">Não foi possível comunicar com os serviços de localização, preencha a origem manualmente.</string>
     <string name="wrong_city_name">Selecione uma cidade da lista</string>
+    <string name="ERROR_SHIPPING_VALIDATION">Preencha os campos corretamente</string>
 </resources>

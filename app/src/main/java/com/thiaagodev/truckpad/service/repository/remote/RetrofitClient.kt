@@ -4,9 +4,8 @@ import com.thiaagodev.truckpad.service.constants.TruckPadConstants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
-class IBGERetrofitClient private constructor() {
+class RetrofitClient private constructor() {
 
     companion object {
         private lateinit var INSTANCE: Retrofit
@@ -16,9 +15,9 @@ class IBGERetrofitClient private constructor() {
 
                 val httpClient = OkHttpClient.Builder()
 
-                synchronized(IBGERetrofitClient::class) {
+                synchronized(RetrofitClient::class) {
                     INSTANCE = Retrofit.Builder()
-                        .baseUrl(TruckPadConstants.Retrofit.IBGEBaseUrl)
+                        .baseUrl(TruckPadConstants.Retrofit.baseUrl)
                         .client(httpClient.build())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()

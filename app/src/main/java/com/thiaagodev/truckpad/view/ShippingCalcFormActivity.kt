@@ -2,7 +2,6 @@ package com.thiaagodev.truckpad.view
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,10 +18,10 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.thiaagodev.truckpad.R
 import com.thiaagodev.truckpad.databinding.ActivityShippingCalcFormBinding
+import com.thiaagodev.truckpad.service.model.ShippingModel
 import com.thiaagodev.truckpad.view.filter.MinMaxFilter
 import com.thiaagodev.truckpad.viewmodel.ShippingCalcFormViewModel
 import java.text.NumberFormat
-import java.util.*
 
 
 class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
@@ -101,9 +100,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
         })
 
@@ -137,9 +134,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
         })
     }
@@ -147,7 +142,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.fab_close -> finish()
-            R.id.button_calc_shipping -> calcShipping()
+            R.id.button_calc_shipping -> saveShipping()
         }
     }
 
@@ -161,6 +156,10 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
             if (!it.status) {
                 Snackbar.make(binding.root, it.message.toString(), Snackbar.LENGTH_SHORT).show()
             }
+        }
+
+        viewModel.cityName.observe(this) {
+            binding.editOrigin.setText(it)
         }
     }
 
@@ -188,7 +187,38 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
         snackBarView.show()
     }
 
-    private fun calcShipping() {
+    private fun saveShipping() {
+
+        try {
+            val originName = binding.editOrigin.text.toString()
+            val destinyName = binding.editDestiny.text.toString()
+            val axes = binding.editAxes.text.toString().toInt()
+            val fuelConsumption = binding.editFuelConsumption.text.toString()
+                .replace("Km/L", "")
+                .replace(",", ".")
+                .replace("\\s".toRegex(), "")
+                .toDouble()
+            val fuelPrice = binding.editFuelPrice.text.toString()
+                .replace("R$", "")
+                .replace(",", ".")
+                .replace("\\s".toRegex(), "")
+                .toDouble()
+
+            val shipping = ShippingModel()
+            shipping.originName = originName
+            shipping.destinyName = destinyName
+            shipping.axes = axes
+            shipping.fuelConsumption = fuelConsumption
+            shipping.fuelPrice = fuelPrice
+
+            viewModel.saveShippingWithLatLong(shipping)
+        } catch (e: Exception) {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.ERROR_SHIPPING_VALIDATION),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
 
     }
 
@@ -211,18 +241,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         task.addOnSuccessListener {
-
-            try {
-                val geoCoder = Geocoder(this, Locale.getDefault())
-                val address = geoCoder.getFromLocation(it.latitude, it.longitude, 1)
-                binding.editOrigin.setText("${address[0].subAdminArea}, ${address[0].adminArea}")
-            } catch (exception: Exception) {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.locale_error),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
+            viewModel.getCityName("${it.latitude},${it.longitude}")
         }
     }
 
