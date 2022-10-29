@@ -11,7 +11,4 @@ class TruckPadConstants private constructor(){
         const val SUCCESS = 200
     }
 
-    object GOOGLE {
-        const val KEY = "AIzaSyClno2D2ftNkWaX8mPXjESjhPxuL-UHXds"
-    }
 }

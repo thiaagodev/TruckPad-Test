@@ -18,11 +18,11 @@ class GeoCodeRepository(private val context: Context) {
 
     private val remote = RetrofitClient.getService(GeoCodeService::class.java)
 
-    fun getLatLong(address: String, listener: APIListener<LatLongGeoCodeDTO>) {
+    fun getLatLong(address: String,  API_KEY: String, listener: APIListener<LatLongGeoCodeDTO>) {
         val call = remote.getLatLong(
             TruckPadConstants.Retrofit.GeoCodeUrl,
             address,
-            TruckPadConstants.GOOGLE.KEY
+            API_KEY
         )
         call.enqueue(object : Callback<LatLongGeoCodeDTO> {
             override fun onResponse(
@@ -47,11 +47,11 @@ class GeoCodeRepository(private val context: Context) {
         })
     }
 
-    fun getAddress(latlng: String, listener: APIListener<AddressGeoCodeDTO>) {
+    fun getAddress(latlng: String, API_KEY: String,listener: APIListener<AddressGeoCodeDTO>) {
         val call = remote.getAddress(
             TruckPadConstants.Retrofit.GeoCodeUrl,
             latlng,
-            TruckPadConstants.GOOGLE.KEY
+            API_KEY
         )
         call.enqueue(object : Callback<AddressGeoCodeDTO> {
             override fun onResponse(
