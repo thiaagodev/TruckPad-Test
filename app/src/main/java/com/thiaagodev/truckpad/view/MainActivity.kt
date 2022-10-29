@@ -7,12 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.thiaagodev.truckpad.R
 import com.thiaagodev.truckpad.databinding.ActivityMainBinding
+import com.thiaagodev.truckpad.view.adapter.ShippingAdapter
+import com.thiaagodev.truckpad.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
+    private val adapter = ShippingAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,17 +27,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding.recyclerShipping.layoutManager = LinearLayoutManager(this)
+        binding.recyclerShipping.adapter = adapter
 
         binding.buttonCalcNewShipping.setOnClickListener(this)
 
         getLocationPermission()
+
+        observe()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.listShipping()
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.button_calc_new_shipping -> openShippingForm()
+        }
+    }
+
+    private fun observe() {
+        viewModel.shippingList.observe(this) {
+            adapter.updateShipping(it)
         }
     }
 
