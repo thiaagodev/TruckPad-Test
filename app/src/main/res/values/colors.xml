@@ -2,6 +2,9 @@
 <resources>
     <color name="yellow">#FBDB77</color>
     <color name="gray">#efefef</color>
+    <color name="dark_gray">#A1A1A1</color>
+    <color name="dark">#4C4C4C</color>
+    <color name="green">#64CEA9</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

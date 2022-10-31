@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".view.ShippingDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_shipping_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/shipping_details"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_close"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintBottom_toBottomOf="@+id/text_shipping_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_shipping_detail" />
+
+        <View
+            android:id="@+id/view_gray_background"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_shipping_detail">
+
+        </View>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_total_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/view_gray_background"
+            app:layout_constraintEnd_toStartOf="@id/view_divisor"
+            app:layout_constraintStart_toStartOf="@id/view_gray_background"
+            app:layout_constraintTop_toTopOf="@id/view_gray_background" />
+
+        <View
+            android:id="@+id/view_divisor"
+            android:layout_width="2dp"
+            android:layout_height="32dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="@id/view_gray_background"
+            app:layout_constraintEnd_toEndOf="@id/text_distance"
+            app:layout_constraintStart_toEndOf="@id/text_total_cost"
+            app:layout_constraintTop_toTopOf="@id/view_gray_background" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_gray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/view_gray_background"
+            app:layout_constraintEnd_toEndOf="@id/view_gray_background"
+            app:layout_constraintStart_toEndOf="@id/view_divisor"
+            app:layout_constraintTop_toTopOf="@id/view_gray_background" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_number_origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/text_rounded_background"
+            android:gravity="center"
+            android:text="@string/_1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_gray_background" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_origin"
+            style="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/origin"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/text_number_origin"
+            app:layout_constraintStart_toEndOf="@id/text_number_origin"
+            app:layout_constraintTop_toTopOf="@id/text_number_origin" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_origin_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableStart="@drawable/ic_baseline_my_location_24"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="@string/origin"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_number_origin" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_number_destiny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/text_rounded_background"
+            android:gravity="center"
+            android:text="@string/_2"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_origin_city" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_destiny"
+            style="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/destiny"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/text_number_destiny"
+            app:layout_constraintStart_toEndOf="@id/text_number_destiny"
+            app:layout_constraintTop_toTopOf="@id/text_number_destiny" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_destiny_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableStart="@drawable/ic_baseline_location_searching_24"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="@string/destiny"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_number_destiny" />
+
+        <View
+            android:id="@+id/view_details_divisor"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintTop_toBottomOf="@id/text_destiny_city" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_travel_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableStart="@drawable/ic_baseline_content_paste_search_24"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="@string/shipping_details"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_details_divisor" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/duration"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_travel_details" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_toll_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/toll_count"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_duration" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_toll_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/toll_cost"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_toll_count" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/diesel_consumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/diesel_consumption"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_toll_cost" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/diesel_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/diesel_total_price"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/diesel_consumption" />
+
+        <View
+            android:id="@+id/view_type_load_divisor"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintTop_toBottomOf="@id/diesel_total_price" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_price_per_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableStart="@drawable/ic_baseline_local_shipping_24"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="@string/price_per_load"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_type_load_divisor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_price_per_load"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/text_price_per_load" />
+
+        <View
+            android:id="@+id/view_route_divisor"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintTop_toBottomOf="@id/recycler_price_per_load" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableStart="@drawable/ic_baseline_pin_drop_24"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="@string/route"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_route_divisor" />
+
+        <com.google.android.gms.maps.MapView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/text_route" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
