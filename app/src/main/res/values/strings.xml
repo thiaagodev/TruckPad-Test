@@ -14,4 +14,14 @@
     <string name="locale_error">Unable to communicate with location services, fill in origin manually.</string>
     <string name="wrong_city_name">Select a city from the list</string>
     <string name="ERROR_SHIPPING_VALIDATION">Fill in fields correctly</string>
+    <string name="shipping_details">Shipping Details</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="duration">Duration: %1$s</string>
+    <string name="toll_count">Tolls: %1$s</string>
+    <string name="toll_cost">Toll total cost: %1$s</string>
+    <string name="diesel_consumption">Diesel consumption: %1$s</string>
+    <string name="diesel_total_price">Diesel total price: %1$s</string>
+    <string name="price_per_load">Price per load</string>
+    <string name="route">Route</string>
 </resources>

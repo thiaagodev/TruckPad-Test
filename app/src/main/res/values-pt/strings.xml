@@ -14,4 +14,14 @@
     <string name="locale_error">Não foi possível comunicar com os serviços de localização, preencha a origem manualmente.</string>
     <string name="wrong_city_name">Selecione uma cidade da lista</string>
     <string name="ERROR_SHIPPING_VALIDATION">Preencha os campos corretamente</string>
+    <string name="shipping_details">Detalhes do frete</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="duration">Duração: %1$s</string>
+    <string name="toll_count">Pedágios: %1$s</string>
+    <string name="toll_cost">Gasto com Pedágios: %1$s</string>
+    <string name="diesel_consumption">Uso de combustível: %1$s</string>
+    <string name="diesel_total_price">Gasto de combustível: %1$s</string>
+    <string name="price_per_load">Preço por tipo de carga</string>
+    <string name="route">Rota</string>
 </resources>
