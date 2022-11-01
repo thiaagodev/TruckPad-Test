@@ -8,8 +8,8 @@ class ShippingRepository(private val context: Context) {
 
     private val local = TruckPadDatabase.getDatabase(context).shippingDAO()
 
-    suspend fun save(shipping: ShippingModel) {
-        local.insert(shipping)
+    suspend fun save(shipping: ShippingModel): Long {
+        return local.insert(shipping)
     }
 
     suspend fun list(): List<ShippingModel> {

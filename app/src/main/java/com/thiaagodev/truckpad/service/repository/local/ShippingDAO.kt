@@ -9,7 +9,7 @@ import com.thiaagodev.truckpad.service.model.ShippingModel
 interface ShippingDAO {
 
     @Insert
-    suspend fun insert(shippingModel: ShippingModel)
+    suspend fun insert(shippingModel: ShippingModel): Long
 
     @Query("SELECT * FROM Shipping ORDER BY id DESC")
     suspend fun list(): List<ShippingModel>

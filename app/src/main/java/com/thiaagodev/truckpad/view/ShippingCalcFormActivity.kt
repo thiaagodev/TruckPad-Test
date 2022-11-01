@@ -1,6 +1,7 @@
 package com.thiaagodev.truckpad.view
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
@@ -18,10 +19,12 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.thiaagodev.truckpad.R
 import com.thiaagodev.truckpad.databinding.ActivityShippingCalcFormBinding
+import com.thiaagodev.truckpad.service.constants.TruckPadConstants
 import com.thiaagodev.truckpad.service.model.ShippingModel
 import com.thiaagodev.truckpad.view.filter.MinMaxFilter
 import com.thiaagodev.truckpad.viewmodel.ShippingCalcFormViewModel
 import java.text.NumberFormat
+import java.util.*
 
 
 class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,6 +33,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: ShippingCalcFormViewModel
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var cities: List<String>
+    private val currency = Currency.getInstance(Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +87,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
                     binding.editFuelPrice.removeTextChangedListener(this)
 
                     val cleanString: String = s.toString()
-                        .replace("R$", "")
+                        .replace(currency.symbol, "")
                         .replace(",", "")
                         .replace(".", "")
                         .replace("\\s".toRegex(), "")
@@ -124,7 +128,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
                     val parsed = cleanString.toDouble()
                     var formatted = NumberFormat.getCurrencyInstance().format((parsed / 100))
-                    formatted = formatted.toString().replace("R$", "Km/L")
+                    formatted = formatted.toString().replace(currency.symbol, "Km/L ")
 
                     current = formatted
                     binding.editFuelConsumption.setText(formatted)
@@ -160,6 +164,15 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel.cityName.observe(this) {
             binding.editOrigin.setText(it)
+        }
+
+        viewModel.createdShippingID.observe(this) {
+            val intent = Intent(applicationContext, ShippingDetailActivity::class.java)
+            val bundle = Bundle()
+            bundle.putLong(TruckPadConstants.Shipping.ID, it)
+
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -199,7 +212,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
                 .replace("\\s".toRegex(), "")
                 .toDouble()
             val fuelPrice = binding.editFuelPrice.text.toString()
-                .replace("R$", "")
+                .replace(currency.symbol, "")
                 .replace(",", ".")
                 .replace("\\s".toRegex(), "")
                 .toDouble()

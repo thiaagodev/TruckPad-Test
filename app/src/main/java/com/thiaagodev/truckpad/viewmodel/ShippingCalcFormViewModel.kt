@@ -25,11 +25,13 @@ class ShippingCalcFormViewModel(application: Application) : AndroidViewModel(app
     private val _validation = MutableLiveData<ValidationModel>()
     private val _cities = MutableLiveData<List<String>>()
     private val _cityName = MutableLiveData<String>()
+    private val _createdShippingID = MutableLiveData<Long>()
 
 
     val validation: LiveData<ValidationModel> = _validation
     val cities: LiveData<List<String>> = _cities
     val cityName: LiveData<String> = _cityName
+    val createdShippingID: LiveData<Long> = _createdShippingID
 
     fun getCities() {
         cityRepository.list(object : APIListener<List<CityDTO>> {
@@ -99,7 +101,7 @@ class ShippingCalcFormViewModel(application: Application) : AndroidViewModel(app
 
     private fun saveShipping(shipping: ShippingModel) {
         viewModelScope.launch {
-            shippingRepository.save(shipping)
+            _createdShippingID.value = shippingRepository.save(shipping)
         }
     }
 

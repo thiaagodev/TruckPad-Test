@@ -5,13 +5,16 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thiaagodev.truckpad.R
 import com.thiaagodev.truckpad.databinding.ActivityMainBinding
+import com.thiaagodev.truckpad.service.constants.TruckPadConstants
 import com.thiaagodev.truckpad.view.adapter.ShippingAdapter
+import com.thiaagodev.truckpad.view.listener.OnShippingListener
 import com.thiaagodev.truckpad.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -34,6 +37,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.recyclerShipping.layoutManager = LinearLayoutManager(this)
         binding.recyclerShipping.adapter = adapter
+
+        adapter.attachListener(object : OnShippingListener {
+            override fun onClick(id: Long) {
+                Log.d("id", id.toString())
+                val intent = Intent(applicationContext, ShippingDetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putLong(TruckPadConstants.Shipping.ID, id)
+
+                startActivity(intent)
+
+            }
+
+        })
 
         binding.buttonCalcNewShipping.setOnClickListener(this)
 

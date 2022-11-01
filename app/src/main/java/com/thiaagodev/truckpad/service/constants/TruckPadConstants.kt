@@ -16,4 +16,8 @@ class TruckPadConstants private constructor() {
     object GOOGLE {
         const val KEY = BuildConfig.API_KEY
     }
+
+    object Shipping {
+        const val ID = "shippingID"
+    }
 }
