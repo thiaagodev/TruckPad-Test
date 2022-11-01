@@ -1,10 +1,16 @@
 package com.thiaagodev.truckpad.viewmodel
 
+import android.Manifest
+import android.app.Activity
 import android.app.Application
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.thiaagodev.truckpad.service.dto.AddressGeoCodeDTO
 import com.thiaagodev.truckpad.service.dto.CityDTO
 import com.thiaagodev.truckpad.service.dto.LatLongGeoCodeDTO
@@ -46,7 +52,7 @@ class ShippingCalcFormViewModel(application: Application) : AndroidViewModel(app
         })
     }
 
-    fun getCityName(latlng: String) {
+    private fun getCityName(latlng: String) {
         geoCodeRepository.getAddress(latlng, object : APIListener<AddressGeoCodeDTO> {
             override fun onSuccess(result: AddressGeoCodeDTO) {
                 val cityName =
@@ -102,6 +108,39 @@ class ShippingCalcFormViewModel(application: Application) : AndroidViewModel(app
     private fun saveShipping(shipping: ShippingModel) {
         viewModelScope.launch {
             _createdShippingID.value = shippingRepository.save(shipping)
+        }
+    }
+
+    fun checkLocationPermission(activity: Activity) {
+        viewModelScope.launch {
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+
+            val task = fusedLocationClient.lastLocation
+
+            if (ActivityCompat.checkSelfPermission(
+                    getApplication<Application>().applicationContext,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    getApplication<Application>().applicationContext,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    activity,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    101
+                )
+            }
+
+            task.addOnSuccessListener {
+                try {
+                    getCityName("${it.latitude},${it.longitude}")
+                } catch (e: Exception) {
+
+                }
+            }
         }
     }
 

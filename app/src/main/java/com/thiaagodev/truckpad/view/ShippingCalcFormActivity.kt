@@ -31,7 +31,6 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityShippingCalcFormBinding
     private lateinit var viewModel: ShippingCalcFormViewModel
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var cities: List<String>
     private val currency = Currency.getInstance(Locale.getDefault())
 
@@ -48,11 +47,9 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonCalcShipping.setOnClickListener(this)
         binding.editAxes.filters = arrayOf(MinMaxFilter(2, 9))
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
         observe()
 
-        checkLocationPermission()
+        viewModel.checkLocationPermission(this)
         viewModel.getCities()
 
         binding.editOrigin.setOnFocusChangeListener { _, hasFocus ->
@@ -234,29 +231,5 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
         }
 
     }
-
-    private fun checkLocationPermission() {
-
-        val task = fusedLocationClient.lastLocation
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                101
-            )
-        }
-
-        task.addOnSuccessListener {
-            viewModel.getCityName("${it.latitude},${it.longitude}")
-        }
-    }
-
 
 }
