@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.thiaagodev.truckpad.R
@@ -28,6 +29,7 @@ class ShippingDetailActivity : AppCompatActivity(), View.OnClickListener, OnMapR
     private lateinit var binding: ActivityShippingDetailBinding
     private lateinit var viewModel: ShippingDetailViewModel
     private lateinit var shipping: ShippingModel
+    private lateinit var googleMap: GoogleMap
     private val adapter = ShippingLoadPriceAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +45,11 @@ class ShippingDetailActivity : AppCompatActivity(), View.OnClickListener, OnMapR
         binding.recyclerPricePerLoad.layoutManager = LinearLayoutManager(this)
         binding.recyclerPricePerLoad.adapter = adapter
 
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(this)
+
         observe()
         loadData()
-
-        binding.map.onCreate(savedInstanceState)
-        binding.map.getMapAsync(this)
-
     }
 
     override fun onClick(view: View) {
@@ -57,20 +58,14 @@ class ShippingDetailActivity : AppCompatActivity(), View.OnClickListener, OnMapR
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        val origin = LatLng(shipping.originLatitude, shipping.originLongitude)
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(origin)
-                .title(shipping.originName)
-        )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(origin))
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(origin, 12.0f))
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
     }
 
     private fun observe() {
         viewModel.shipping.observe(this) {
             shipping = it
+            addMapMarker()
             viewModel.getDetails(it)
         }
 
@@ -118,8 +113,7 @@ class ShippingDetailActivity : AppCompatActivity(), View.OnClickListener, OnMapR
         binding.textOriginCity.text = shipping.originName
         binding.textDestinyCity.text = shipping.destinyName
 
-        var duration = shippingDetail.duration.toString()
-        duration = if(shippingDetail.duration > 3600) "${shippingDetail.duration / 3600}h" else "${shippingDetail.duration} ${shippingDetail.durationUnit}"
+        var duration: String = if(shippingDetail.duration > 3600) "${shippingDetail.duration / 3600}h" else "${shippingDetail.duration} ${shippingDetail.durationUnit}"
         binding.textDuration.text = getString(R.string.duration, duration)
 
         binding.textTollCount.text = getString(R.string.toll_count, shippingDetail.tollCount.toString())
@@ -131,6 +125,26 @@ class ShippingDetailActivity : AppCompatActivity(), View.OnClickListener, OnMapR
 
         val fuelCost = NumberFormat.getCurrencyInstance().format(shippingDetail.fuelCost)
         binding.textDieselTotalPrice.text = getString(R.string.diesel_total_price, fuelCost)
+    }
+
+    private fun addMapMarker() {
+        val origin = LatLng(shipping.originLatitude, shipping.originLongitude)
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(origin)
+                .title(shipping.originName)
+        )
+
+        val destiny = LatLng(shipping.destinyLatitude, shipping.destinyLongitude)
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(origin)
+                .title(shipping.destinyName)
+        )
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(origin))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(destiny))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(origin, 15.0f))
     }
 
 }
