@@ -167,7 +167,7 @@ class ShippingCalcFormActivity : AppCompatActivity(), View.OnClickListener {
             val intent = Intent(applicationContext, ShippingDetailActivity::class.java)
             val bundle = Bundle()
             bundle.putLong(TruckPadConstants.Shipping.ID, it)
-
+            intent.putExtras(bundle)
             startActivity(intent)
             finish()
         }

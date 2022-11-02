@@ -40,11 +40,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         adapter.attachListener(object : OnShippingListener {
             override fun onClick(id: Long) {
-                Log.d("id", id.toString())
                 val intent = Intent(applicationContext, ShippingDetailActivity::class.java)
                 val bundle = Bundle()
+                Log.d("MAINID", id.toString())
                 bundle.putLong(TruckPadConstants.Shipping.ID, id)
-
+                intent.putExtras(bundle)
                 startActivity(intent)
 
             }

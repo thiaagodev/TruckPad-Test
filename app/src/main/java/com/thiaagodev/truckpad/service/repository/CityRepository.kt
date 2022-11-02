@@ -23,9 +23,9 @@ class CityRepository(private val context: Context) {
                 if (response.code() == TruckPadConstants.HTTP.SUCCESS) {
                     response.body()?.let { listener.onSuccess(it) }
                 } else {
-                    if (response.errorBody() != null) {
+                    try {
                         listener.onFailure(failResponse(response.errorBody()!!.string()))
-                    } else {
+                    } catch (e: Exception) {
                         listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
                     }
                 }

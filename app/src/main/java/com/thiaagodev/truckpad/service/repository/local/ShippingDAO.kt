@@ -15,6 +15,6 @@ interface ShippingDAO {
     suspend fun list(): List<ShippingModel>
 
     @Query("SELECT * FROM Shipping WHERE id = :id")
-    suspend fun get(id: Int): ShippingModel?
+    suspend fun get(id: Long): ShippingModel?
 
 }

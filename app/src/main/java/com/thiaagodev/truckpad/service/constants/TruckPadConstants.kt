@@ -7,6 +7,7 @@ class TruckPadConstants private constructor() {
         const val baseUrl = "https://api.homolog.truckpad.io/geo/v1/"
         const val IBGEBaseUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/"
         const val GeoCodeUrl = "https://maps.googleapis.com/maps/api/geocode/json"
+        const val loadPricesURL = "https://tictac.api.truckpad.io/v1/antt_price/all"
     }
 
     object HTTP {
