@@ -10,7 +10,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
-class ShippingDetailTest {
+class ShippingDetailTestActivity {
 
     @get:Rule
     var rule = ActivityTestRule<ShippingDetailActivity>(ShippingDetailActivity::class.java)
