@@ -27,6 +27,7 @@ na aplicação.
 
 Na parte de layout, me inspirei no app já existente da TruckPad, trazendo sua paleta de cores.
 
+![foto](./.github/truckpad.jpg)
 
 ## ⚙ Configuração no Emulador
 
